@@ -1,0 +1,27 @@
+.header-image {
+  background-size: cover;
+}
+
+mat-chip-list {
+  display: inline-block;
+  padding: 8px;
+
+  img {
+    height: 40px;
+  }
+}
+
+.back-link {
+  display: inline-block;
+  font-size: 20px;
+  span {
+    display: inline-block;
+    height: 24px;
+    vertical-align: top;
+    line-height: 24px;
+  }
+}
+
+.back-link:focus {
+  color: darkslategrey;
+}
