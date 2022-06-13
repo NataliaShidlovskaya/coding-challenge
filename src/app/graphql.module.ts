@@ -26,7 +26,7 @@ export class GraphqlModule {
     const authLink: ApolloLink = setContext(async () => ({
       headers: {
         Accept: 'charset=utf-8',
-        Authorization: 'Bearer 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'
+        Authorization: 'Bearer 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'
       }
     }))
     apollo.create({
