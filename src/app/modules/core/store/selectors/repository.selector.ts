@@ -18,8 +18,3 @@ export const selectPagination = createSelector(
   selectRepositories,
   (state: RepositoryState) => state.pagination
 )
-
-export const selectRepositoryCount = createSelector(
-  selectRepositories,
-  (state: RepositoryState) => state.repositoryCount
-)

@@ -7,6 +7,8 @@ export enum RepositoryActions {
   GetRepository = '[Repository] Get Repository',
   GetRepositoriesSuccess = '[Repository] Get Repositories Success',
   GetRepositorySuccess = '[Repository] Get Repository Success',
+  GetRepositoriesFailed = '[Repository] Get Repositories Failed',
+  GetRepositoryFailed = '[Repository] Get Repository Failed',
 }
 
 export const getRepositories = createAction(
@@ -27,4 +29,12 @@ export const getRepositoriesSuccess = createAction(
 export const getRepositorySuccess = createAction(
   RepositoryActions.GetRepositorySuccess,
   props<{ selectedRepository: Repository }>()
+)
+
+export const getRepositoriesFailed = createAction(
+  RepositoryActions.GetRepositoriesFailed
+)
+
+export const getRepositoryFailed = createAction(
+  RepositoryActions.GetRepositoryFailed
 )

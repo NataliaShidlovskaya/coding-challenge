@@ -15,6 +15,7 @@ import { DetailsRepositoryComponent } from '@modules/repository/details-reposito
 import { GraphqlModule } from './graphql.module'
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { AppRoutingModule } from './app-routing.module'
     MatChipsModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [MatSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
