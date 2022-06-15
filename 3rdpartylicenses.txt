@@ -102,6 +102,8 @@ SOFTWARE.
 
 @apollo/client/link/core
 
+@apollo/client/link/error
+
 @apollo/client/link/http
 
 @apollo/client/link/utils
