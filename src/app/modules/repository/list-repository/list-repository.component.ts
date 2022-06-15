@@ -6,11 +6,7 @@ import { RepositoryService } from '../../../services/repository.service'
 import { Repository } from '@models/repository'
 import { getRepositories } from '@core/store/actions/repository.actions'
 import { AppState } from '@core/store/state/app.state'
-import {
-  selectPagination,
-  selectRepositoryCount,
-  selectRepositoryList
-} from '@core/store/selectors/repository.selector'
+import { selectPagination, selectRepositoryList } from '@core/store/selectors/repository.selector'
 import { selectIsLoading } from '@core/store/selectors/loading.selector'
 import { PageInfo } from '@models/graphql-models/repository-graphql'
 
@@ -29,8 +25,6 @@ export class ListRepositoryComponent implements OnInit {
   repositories$: Observable<Repository[]> = this.store.select((state) => selectRepositoryList(state))
 
   pagination$: Observable<PageInfo | null> = this.store.select((state) => selectPagination(state))
-
-  repositoryCount$: Observable<number> = this.store.select((state) => selectRepositoryCount(state))
 
   constructor (
     private repositoryService: RepositoryService,
@@ -59,7 +53,7 @@ export class ListRepositoryComponent implements OnInit {
     )
   }
 
-  onTableScroll (e: any, pagination: PageInfo) {
+  onTableScroll (e: any, pagination: PageInfo): void {
     const tableViewHeight = e.target.offsetHeight
     const tableScrollHeight = e.target.scrollHeight
     const scrollLocation = e.target.scrollTop

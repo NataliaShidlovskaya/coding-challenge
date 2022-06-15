@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { map, switchMap } from 'rxjs'
+import { map, switchMap, catchError, of } from 'rxjs'
 import { RepositoryService } from '../../../../services/repository.service'
 import {
-  getRepositories,
+  getRepositories, getRepositoriesFailed,
   getRepositoriesSuccess,
-  getRepository,
+  getRepository, getRepositoryFailed,
   getRepositorySuccess
 } from '../actions/repository.actions'
 
@@ -20,7 +20,8 @@ export class RepositoryEffects {
   getRepositories$ = createEffect(() => this.actions$.pipe(
     ofType(getRepositories),
     switchMap((action) => this.repositoryService.getRepositoryList(action.first, action.after).pipe(
-      map(({ data }) => (getRepositoriesSuccess({ ...data })))
+      map(({ data }) => (getRepositoriesSuccess({ ...data }))),
+      catchError(() => of(getRepositoriesFailed()))
     ))
   ))
 
@@ -28,7 +29,8 @@ export class RepositoryEffects {
     ofType(getRepository),
     switchMap((action) => this.repositoryService.getRepository(action.name, action.owner).pipe(
       switchMap(({ data }) => this.repositoryService.getContributors(action.name, action.owner).pipe(
-        map((contributors) => (getRepositorySuccess({ selectedRepository: { ...data, contributors } })))
+        map((contributors) => (getRepositorySuccess({ selectedRepository: { ...data, contributors } }))),
+        catchError(() => of(getRepositoryFailed()))
       ))
     ))
   ))

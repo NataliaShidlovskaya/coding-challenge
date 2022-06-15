@@ -1,6 +1,8 @@
 <div>
   <ng-container *ngIf="!(loading$ | async) as loading; else loading">
-    <a [routerLink]="'/repositories'" class="back-link"> <mat-icon>chevron_left</mat-icon><span>Back</span></a>
+    <a [routerLink]="'/repositories'" class="back-link">
+      <mat-icon>chevron_left</mat-icon>
+      <span>Back</span></a>
     <mat-card class="card" *ngIf="repository$ | async  as repository">
       <mat-card-header>
         <div mat-card-avatar class="header-image"

@@ -27,7 +27,9 @@ export class DetailsRepositoryComponent implements OnInit {
 
   ngOnInit (): void {
     this.route.queryParams.subscribe(({ name, owner }) => {
-      this.store.dispatch(getRepository({ name, owner }))
+      if (name && owner) {
+        this.store.dispatch(getRepository({ name, owner }))
+      }
     })
   }
 }

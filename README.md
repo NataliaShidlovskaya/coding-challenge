@@ -20,7 +20,9 @@ Store based on ngrx
 
 ![Details view](/src/assets/readme-images/details-view.png?raw=true "Details view")
 
+For running the app need to update token in environment file
 
+generate token (https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

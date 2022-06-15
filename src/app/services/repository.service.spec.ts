@@ -10,6 +10,7 @@ import {
 import { GET_REPOSITORY, GET_REPOSITORY_LIST } from './graphql-queries/repository'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { MOCK_CONTRIBUTORS } from '../mocks/mock-contributor'
+import { UtilsService } from './utils.service'
 
 export const searchStub = {
   data: {
@@ -22,8 +23,13 @@ describe('RepositoryService', () => {
   let repositoryService: RepositoryService
   let httpMock: HttpTestingController
 
+  const utilsServiceSpy = jasmine.createSpyObj('UtilsService', ['openSnackBar'])
+
   beforeEach(() => {
     TestBed.configureTestingModule({
+      providers: [
+        { provide: UtilsService, useValue: utilsServiceSpy }
+      ],
       imports: [
         ApolloTestingModule,
         HttpClientTestingModule

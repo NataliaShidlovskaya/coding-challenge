@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Apollo } from 'apollo-angular'
-import { map, Observable } from 'rxjs'
+import { catchError, map, Observable, throwError } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { ApolloQueryResult } from '@apollo/client/core'
 import { GET_REPOSITORY, GET_REPOSITORY_LIST } from './graphql-queries/repository'
@@ -13,16 +13,17 @@ import { SearchTypeEnum } from '../enums/searchType.enum'
 import { Contributor } from '@models/contributor'
 import { Repository } from '@models/repository'
 import { mapRepositoryList } from './mappers/repository-mapper'
+import { environment } from '@env'
+import { UtilsService } from './utils.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RepositoryService {
-  private GITHUB_URL = 'https://api.github.com'
-
   constructor (
     private apollo: Apollo,
-    private http: HttpClient
+    private http: HttpClient,
+    private utilService: UtilsService
   ) {
   }
 
@@ -40,7 +41,10 @@ export class RepositoryService {
         }
       })
       .valueChanges.pipe(
-        map((result) => ({ ...result, data: mapRepositoryList(result.data.search) }))
+        map((result) => ({ ...result, data: mapRepositoryList(result.data.search) })),
+        catchError((error) => {
+          return throwError(() => this.utilService.openSnackBar(error))
+        })
       )
   }
 
@@ -57,11 +61,18 @@ export class RepositoryService {
         map((result) => ({
           ...result,
           data: result.data.repository
-        }))
+        })),
+        catchError((error) => {
+          return throwError(() => this.utilService.openSnackBar(error))
+        })
       )
   }
 
   getContributors (name: string, owner: string): Observable<Contributor[]> {
-    return this.http.get<Contributor[]>(`${this.GITHUB_URL}/repos/${owner}/${name}/contributors`)
+    return this.http.get<Contributor[]>(`${environment.apiUrl}/repos/${owner}/${name}/contributors`).pipe(
+      catchError((error) => {
+        return throwError(() => this.utilService.openSnackBar(error))
+      })
+    )
   }
 }
